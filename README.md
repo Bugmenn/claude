@@ -6,13 +6,13 @@ Repositório pessoal com as skills, subagentes e arquivo de setup que uso com o 
 
 ```
 claude-code/
-├── config claude.md          # Prompt de setup para configurar uma máquina/projeto novo
-├── skills/                   # Skills do Claude Code (.claude/skills/)
+├── config SETUP_CLAUDE_PADRAO.md     # Prompt de setup para configurar uma máquina/projeto novo
+├── skills/                           # Skills do Claude Code (.claude/skills/)
 │   ├── arquitetura-projeto/
 │   │   └── SKILL.md
 │   └── otimizacao-codigo/
 │       └── SKILL.md
-└── agents/                   # Subagentes do Claude Code (.claude/agents/)
+└── agents/                           # Subagentes do Claude Code (.claude/agents/)
     ├── depurador.md
     └── revisor-codigo.md
 ```
