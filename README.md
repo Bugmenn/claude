@@ -13,14 +13,17 @@ claude/
 │   ├── frontend-design/
 │   │   ├── SKILL.md
 │   │   └── LICENSE.txt
-│   └── otimizacao-codigo/
+│   ├── otimizacao-codigo/
+│   │   └── SKILL.md
+│   └── revisao-final/
 │       └── SKILL.md
 └── agents/                           # Subagentes do Claude Code (.claude/agents/)
     ├── depurador.md
     ├── descritor-pr.md
     ├── documentador.md
     ├── especialista-banco.md
-    └── revisor-codigo.md
+    ├── revisor-codigo.md
+    └── testador.md
 ```
 
 ## Como instalar
@@ -33,10 +36,12 @@ Copie a pasta da skill desejada para dentro de `.claude/skills/` do seu projeto,
 cp -r skills/arquitetura-projeto ~/meu-projeto/.claude/skills/
 cp -r skills/otimizacao-codigo ~/meu-projeto/.claude/skills/
 cp -r skills/frontend-design ~/meu-projeto/.claude/skills/
+cp -r skills/revisao-final ~/meu-projeto/.claude/skills/
 ```
 
 - **`arquitetura-projeto`** — mapeia a estrutura do projeto, avalia o desenho (camadas, acoplamento, coesão, direção de dependências) e propõe mudanças arquiteturais quando fizer sentido, priorizadas por impacto, risco e esforço. Também atende projeto novo ou decisão de design: levanta requisitos e registra a decisão em ADR.
 - **`otimizacao-codigo`** — analisa código em busca de oportunidades de otimização: complexidade algorítmica, uso de memória, leitura e uso de recursos, acesso a banco, duplicação, complexidade desnecessária e boas práticas da linguagem/framework. Classifica cada achado como confirmado ou provável e propõe um teste que fixa o comportamento antes de refatorar código sem testes.
+- **`revisao-final`** — revisão de fechamento de uma mudança (Regra 08 do `SETUP_CLAUDE_PADRAO.md`): dispara o `revisor-codigo` duas vezes em paralelo, uma delas cega, junta os achados, corrige tudo numa passada só e fecha cada achado com evidência (corrigido, não aplicável ou escalado). Depende dos agentes `revisor-codigo` e, quando houver banco ou testes envolvidos, `especialista-banco` e `testador`.
 - **`frontend-design`** — orienta o design visual ao criar ou refazer uma interface: direção estética, tipografia e escolhas que não pareçam template padrão. Tem licença própria (Apache 2.0, em `LICENSE.txt`).
 
 ### Agentes
@@ -51,6 +56,7 @@ cp agents/*.md ~/.claude/agents/
 - **`depurador`** — investiga erros, exceptions e testes falhando até a causa raiz antes de corrigir, e escreve um teste que reproduz o bug.
 - **`documentador`** — gera e atualiza documentação a partir do código real: README, Javadoc/docstrings, documentação de API, runbooks, documentação de arquitetura e guias de onboarding.
 - **`especialista-banco`** — queries SQL, migrations, stored procedures/functions e otimização de schema e índices.
+- **`testador`** — escreve e roda testes seguindo o que o projeto já usa: teste que reproduz um bug (e confirma que ele falha antes da correção), testes de código novo e levantamento do que falta cobrir. Sempre confere na saída quantos testes realmente executaram.
 - **`descritor-pr`** — escreve a descrição de uma Pull Request a partir do diff: contexto, o que mudou e como testar.
 
 ### Configuração de máquina nova
